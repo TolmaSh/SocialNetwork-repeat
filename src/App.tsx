@@ -5,16 +5,17 @@ import {Navbar} from './components/navbar/Navbar';
 import {Profile} from './components/profile/Profile';
 
 function App() {
-  return (
-    <div className="App">
-     <Header/>
-        <div>
-            <Navbar/>
-            <Profile/>
+    return (
+        <div className="App">
+            <div className={'wrapper'}>
+                <Header/>
+                <Navbar/>
+                <Profile/>
+                <div className={'footer'}>Footer</div>
+            </div>
+
         </div>
-        <div>Footer</div>
-    </div>
-  );
+    );
 }
 
 export default App;

@@ -6,6 +6,8 @@ export const Myposts = () => {
         <ul>
             <Post postText={'Hi'} />
             <Post postText={'HEllo'} />
+            <Post postText={'HEllo'} />
+            <Post postText={'HEllo'} />
         </ul>
     );
 };

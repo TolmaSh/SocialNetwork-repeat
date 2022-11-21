@@ -12,6 +12,14 @@ const dialogsData = [
     {id:6, name: 'Harry'},
 ]
 
+const messagesData = [
+    {id:1, message: 'Hi'},
+    {id:2, message: 'Hey'},
+    {id:3, message: 'Bye'},
+    {id:4, message: 'How are you?'},
+    {id:5, message: 'I`m fine , thank you'},
+]
+
 export const Dialogs = ()  => {
     return (
         <div className={s.dialogs}>
@@ -21,9 +29,9 @@ export const Dialogs = ()  => {
                 })}
             </ul>
             <ul className={s.messages}>
-                <Message message={'Hi'}/>
-                <Message message={'Hi'}/>
-                <Message message={'Hi'}/>
+                {messagesData.map(m=> {
+                    return <Message key={m.id} message={m.message}/>
+                })}
             </ul>
         </div>
     );

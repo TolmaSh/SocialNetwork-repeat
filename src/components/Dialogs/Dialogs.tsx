@@ -10,6 +10,7 @@ const dialogsData = [
     {id:4, name: 'Olga'},
     {id:5, name: 'Horton'},
     {id:6, name: 'Harry'},
+    {id:7, name: 'Sergey'},
 ]
 
 const messagesData = [

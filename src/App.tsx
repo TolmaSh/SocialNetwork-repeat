@@ -5,8 +5,16 @@ import {Navbar} from './components/navbar/Navbar';
 import {Profile} from './components/profile/Profile';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {Dialogs} from './components/Dialogs/Dialogs';
+import {dialogsDataType, messagesDataType, postsDataType} from './index';
 
-function App() {
+type PropsType = {
+    dialogs:dialogsDataType[]
+    messages:messagesDataType[]
+    posts:postsDataType[]
+}
+
+function App(props:PropsType) {
+    const {dialogs,messages,posts} = props
     return (
         <>
             <BrowserRouter>
@@ -16,8 +24,8 @@ function App() {
                         <Navbar/>
 
                         <Routes>
-                            <Route path="/dialogs" element={<Dialogs/>}/>
-                            <Route path="/*" element={<Profile/>}/>
+                            <Route path="/dialogs" element={<Dialogs dialogs={dialogs} messages={messages}/>}/>
+                            <Route path="/*" element={<Profile posts={posts}/>}/>
                         </Routes>
                         <div className={'footer'}>Footer</div>
                     </div>

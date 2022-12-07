@@ -1,4 +1,18 @@
 .dialogs {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  margin-left: 30px;
+}
+.dialogsWrapper {
+  display: flex;
   gap: 100px;
+}
+.dialogsTextArea {
+  margin-left: 30px;
+  width: 250px;
+}
+.dialogsButton {
+  width: 125px;
 }

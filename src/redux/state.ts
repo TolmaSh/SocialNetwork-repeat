@@ -1,3 +1,5 @@
+import {rerenderState} from '../rerenderState';
+
 export type DialogsDataType = {
     id: number
     name: string
@@ -50,4 +52,10 @@ export const state:StatePropsType = {
             {id: 4, post: 'How are you?'},
         ]
     }
+}
+
+export const addPost = (post:string) => {
+    const newPost = {id: state.dialogsPage.messages.length + 1, message: post}
+    state.dialogsPage.messages.push(newPost)
+    rerenderState(state)
 }

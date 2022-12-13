@@ -59,6 +59,3 @@ export const addPost = (post:string) => {
     state.dialogsPage.messages.push(newPost)
     rerenderState(state)
 }
-export const deletePost = () => {
-
-}

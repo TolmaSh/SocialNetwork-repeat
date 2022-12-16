@@ -1,4 +1,4 @@
-import {rerenderState} from '../rerenderState';
+
 
 export type DialogsDataType = {
     id: number
@@ -25,7 +25,9 @@ export type StatePropsType = {
     dialogsPage: DialogsPageType
     profilePage: ProfilePageType
 }
-
+let onChange = (state: StatePropsType) => {
+    console.log('state rendered')
+}
 export const state:StatePropsType = {
     dialogsPage: {
         dialogs: [
@@ -60,10 +62,13 @@ export const addPost = () => {
     const newPost = {id: state.dialogsPage.messages.length + 1, message: state.dialogsPage.newPostText}
     state.dialogsPage.messages.push(newPost)
     state.dialogsPage.newPostText = ''
-    rerenderState(state)
+    onChange(state)
 }
 export const updatePostText = (text: string) => {
     state.dialogsPage.newPostText = text
-    rerenderState(state)
+    onChange(state)
 }
 
+export const subscriber = (observer: (state: StatePropsType) => void) => {
+    onChange = observer
+}

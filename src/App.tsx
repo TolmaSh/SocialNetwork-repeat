@@ -10,7 +10,8 @@ import {StatePropsType} from './redux/state';
 
 type PropsType = {
     state: StatePropsType
-    addPost: (text:string) => void
+    addPost: () => void
+    updatePostText: (text: string) => void
 }
 
 function App(props:PropsType) {
@@ -24,7 +25,7 @@ function App(props:PropsType) {
                         <Navbar/>
 
                         <Routes>
-                            <Route path="/dialogs" element={<Dialogs state={dialogsPage} addPost={props.addPost}/>}/>
+                            <Route path="/dialogs" element={<Dialogs state={dialogsPage} addPost={props.addPost} updatePostText={props.updatePostText}/>}/>
                             <Route path="/*" element={<Profile state={profilePage}/>}/>
                         </Routes>
                         <div className={'footer'}>Footer</div>

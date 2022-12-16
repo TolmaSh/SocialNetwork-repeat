@@ -2,11 +2,12 @@ import React, {RefObject} from 'react';
 import s from './Dialogs.module.scss'
 import {Message} from './Message/Message';
 import {User} from './User/User';
-import {addPost, DialogsPageType} from '../../redux/state';
+import {addPost, DialogsPageType, updatePostText} from '../../redux/state';
 
 type PropsType = {
     state: DialogsPageType
-    addPost: (text:string) => void
+    addPost: () => void
+    updatePostText: (text: string) => void
 }
 
 export const Dialogs: React.FC<PropsType> = (props) => {
@@ -14,9 +15,11 @@ export const Dialogs: React.FC<PropsType> = (props) => {
 
     const newPostText:any = React.createRef()
     const addPostCallback = () => {
+        addPost()
+    }
+    const onChangePostHandler = () => {
         const text = newPostText.current.value
-        addPost(text)
-        newPostText.current.value = ''
+        updatePostText(text)
     }
 
     return (
@@ -34,7 +37,7 @@ export const Dialogs: React.FC<PropsType> = (props) => {
                     </ul>
                 </div>
 
-                <textarea className={s.dialogsTextArea} ref={newPostText}></textarea>
+                <textarea onChange={onChangePostHandler} className={s.dialogsTextArea} ref={newPostText} value={props.state.newPostText}></textarea>
                 <button className={s.dialogsButton} onClick={addPostCallback}>Add post</button>
             </div>
 

@@ -12,7 +12,7 @@ export type PostsDataType = {
     id:number
     post:string
 }
-
+export type SubscriberType = (state: StateType) => void
 export type DialogsPageType = {
     dialogs: DialogsDataType[]
     messages: MessagesDataType[]
@@ -21,14 +21,20 @@ export type DialogsPageType = {
 export type ProfilePageType = {
     posts: PostsDataType[]
 }
-export type StatePropsType = {
+export type StateType = {
     dialogsPage: DialogsPageType
     profilePage: ProfilePageType
 }
-let onChange = (state: StatePropsType) => {
-    console.log('state rendered')
+export type StoreType = {
+    _state: StateType
+    _subscriber: SubscriberType
+    getState: () => void
+    subscribe: (observer: SubscriberType) => void
+    addPost: () => void
+    updatePostText: (text: string) => void
 }
-export const state:StatePropsType = {
+export const store: StoreType = {
+    _state: {
     dialogsPage: {
         dialogs: [
             {id:1, name: 'Tim'},
@@ -56,19 +62,24 @@ export const state:StatePropsType = {
             {id: 4, post: 'How are you?'},
         ]
     }
-}
-
-export const addPost = () => {
-    const newPost = {id: state.dialogsPage.messages.length + 1, message: state.dialogsPage.newPostText}
-    state.dialogsPage.messages.push(newPost)
-    state.dialogsPage.newPostText = ''
-    onChange(state)
-}
-export const updatePostText = (text: string) => {
-    state.dialogsPage.newPostText = text
-    onChange(state)
-}
-
-export const subscriber = (observer: (state: StatePropsType) => void) => {
-    onChange = observer
+},
+    _subscriber(state: StateType) {
+        console.log('state render')
+    },
+    getState() {
+        return this._state;
+    },
+    subscribe(observer: SubscriberType) {
+        this._subscriber = observer
+    },
+    addPost() {
+        const newPost = {id: this._state.dialogsPage.messages.length + 1, message: this._state.dialogsPage.newPostText}
+        this._state.dialogsPage.messages.push(newPost)
+        this._state.dialogsPage.newPostText = ''
+        this._subscriber(this._state)
+    },
+    updatePostText(text:string) {
+        this._state.dialogsPage.newPostText = text
+        this.subscribe(this.getState)
+    }
 }

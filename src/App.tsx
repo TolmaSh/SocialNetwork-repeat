@@ -5,11 +5,11 @@ import {Navbar} from './components/navbar/Navbar';
 import {Profile} from './components/profile/Profile';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {Dialogs} from './components/Dialogs/Dialogs';
-import {StatePropsType} from './redux/state';
+import {StateType} from './redux/state';
 
 
 type PropsType = {
-    state: StatePropsType
+    state: any
     addPost: () => void
     updatePostText: (text: string) => void
 }

@@ -2,7 +2,7 @@ import React, {RefObject} from 'react';
 import s from './Dialogs.module.scss'
 import {Message} from './Message/Message';
 import {User} from './User/User';
-import {addPost, DialogsPageType, updatePostText} from '../../redux/state';
+import { DialogsPageType} from '../../redux/state';
 
 type PropsType = {
     state: DialogsPageType
@@ -15,11 +15,12 @@ export const Dialogs: React.FC<PropsType> = (props) => {
 
     const newPostText:any = React.createRef()
     const addPostCallback = () => {
-        addPost()
+        props.addPost()
     }
     const onChangePostHandler = () => {
         const text = newPostText.current.value
-        updatePostText(text)
+        console.log(text)
+        props.updatePostText(text)
     }
 
     return (

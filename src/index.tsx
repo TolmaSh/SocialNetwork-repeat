@@ -5,16 +5,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {addPost, StatePropsType, subscriber, updatePostText} from './redux/state';
-import {state} from './redux/state';
+import { StateType, } from './redux/state';
+import {store} from './redux/state';
 
-export const rerenderState = (state: StatePropsType) => {
+const getState:any = store.getState()
+export const rerenderState = (state: StateType) => {
     ReactDOM.render(
-        <App state={state} addPost={addPost} updatePostText={updatePostText}/>,
+        <App state={state} addPost={store.addPost} updatePostText={store.updatePostText}/>,
         document.getElementById('root')
     );
 }
 
-rerenderState(state)
-subscriber(rerenderState)
+rerenderState(getState)
+store.subscribe(rerenderState)
 

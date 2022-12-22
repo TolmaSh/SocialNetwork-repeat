@@ -8,14 +8,13 @@ import App from './App';
 import { StateType, } from './redux/state';
 import {store} from './redux/state';
 
-const getState:any = store.getState()
-export const rerenderState = (state: StateType) => {
+export const rerenderState = () => {
     ReactDOM.render(
-        <App state={state} addPost={store.addPost} updatePostText={store.updatePostText}/>,
+        <App state={store.getState()} addPost={store.addPost.bind(store)} updatePostText={store.updatePostText.bind(store)}/>,
         document.getElementById('root')
     );
 }
 
-rerenderState(getState)
+rerenderState()
 store.subscribe(rerenderState)
 

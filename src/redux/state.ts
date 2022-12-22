@@ -12,7 +12,7 @@ export type PostsDataType = {
     id:number
     post:string
 }
-export type SubscriberType = (state: StateType) => void
+export type SubscriberType = () => void
 export type DialogsPageType = {
     dialogs: DialogsDataType[]
     messages: MessagesDataType[]
@@ -63,7 +63,7 @@ export const store: StoreType = {
         ]
     }
 },
-    _subscriber(state: StateType) {
+    _subscriber() {
         console.log('state render')
     },
     getState() {
@@ -76,10 +76,10 @@ export const store: StoreType = {
         const newPost = {id: this._state.dialogsPage.messages.length + 1, message: this._state.dialogsPage.newPostText}
         this._state.dialogsPage.messages.push(newPost)
         this._state.dialogsPage.newPostText = ''
-        this._subscriber(this._state)
+        this._subscriber()
     },
     updatePostText(text:string) {
         this._state.dialogsPage.newPostText = text
-        this.subscribe(this.getState)
+        this._subscriber()
     }
 }

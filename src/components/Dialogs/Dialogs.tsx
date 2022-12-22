@@ -19,7 +19,6 @@ export const Dialogs: React.FC<PropsType> = (props) => {
     }
     const onChangePostHandler = () => {
         const text = newPostText.current.value
-        console.log(text)
         props.updatePostText(text)
     }
 

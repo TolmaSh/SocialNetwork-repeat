@@ -1,26 +1,25 @@
-import React, {RefObject} from 'react';
+import React from 'react';
 import s from './Dialogs.module.scss'
 import {Message} from './Message/Message';
 import {User} from './User/User';
-import { DialogsPageType} from '../../redux/state';
+import {ActionTypes, addPostAC, DialogsPageType, updatePostTextAC} from '../../redux/state';
 
 type PropsType = {
     state: DialogsPageType
-    addPost: () => void
-    updatePostText: (text: string) => void
+    dispatch: (action: ActionTypes) => void
 }
 
 export const Dialogs: React.FC<PropsType> = (props) => {
     const {dialogs, messages} = props.state
 
-    const newPostText:any = React.createRef()
+    const newPostText = React.createRef<any>();
     const addPostCallback = () => {
-        props.addPost()
+        props.dispatch(addPostAC())
     }
+
     const onChangePostHandler = () => {
         const text = newPostText.current.value
-        console.log(text)
-        props.updatePostText(text)
+        props.dispatch(updatePostTextAC(text))
     }
 
     return (

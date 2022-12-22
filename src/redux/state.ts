@@ -12,7 +12,6 @@ export type PostsDataType = {
     id:number
     post:string
 }
-export type SubscriberType = (state: StateType) => void
 export type DialogsPageType = {
     dialogs: DialogsDataType[]
     messages: MessagesDataType[]
@@ -25,13 +24,15 @@ export type StateType = {
     dialogsPage: DialogsPageType
     profilePage: ProfilePageType
 }
+
+
 export type StoreType = {
     _state: StateType
-    _subscriber: SubscriberType
+    _subscriber: () => void
     getState: () => void
-    subscribe: (observer: SubscriberType) => void
-    addPost: () => void
-    updatePostText: (text: string) => void
+    subscribe: (observer: () => void) => void
+
+    dispatch: (action: ActionTypes) => void
 }
 export const store: StoreType = {
     _state: {
@@ -63,23 +64,48 @@ export const store: StoreType = {
         ]
     }
 },
-    _subscriber(state: StateType) {
+    _subscriber() {
         console.log('state render')
     },
+
     getState() {
         return this._state;
     },
-    subscribe(observer: SubscriberType) {
+    subscribe(observer) {
         this._subscriber = observer
     },
-    addPost() {
-        const newPost = {id: this._state.dialogsPage.messages.length + 1, message: this._state.dialogsPage.newPostText}
-        this._state.dialogsPage.messages.push(newPost)
-        this._state.dialogsPage.newPostText = ''
-        this._subscriber(this._state)
-    },
-    updatePostText(text:string) {
-        this._state.dialogsPage.newPostText = text
-        this.subscribe(this.getState)
+
+
+    dispatch(action) {
+        if ( action.type === 'ADD-POST') {
+            const newPost = {id: this._state.dialogsPage.messages.length + 1, message: this._state.dialogsPage.newPostText}
+            this._state.dialogsPage.messages.push(newPost)
+            this._state.dialogsPage.newPostText = ''
+            this._subscriber()
+        } else if ( action.type === 'UPDATE-POST-TEXT') {
+            this._state.dialogsPage.newPostText = action.payload
+            this._subscriber()
+        }
     }
 }
+
+
+export type ActionTypes = AddPostActionType | UpdatePostTextActionType
+
+type AddPostActionType = ReturnType<typeof addPostAC>
+type UpdatePostTextActionType = ReturnType<typeof updatePostTextAC>
+
+export const addPostAC = () => {
+    return {
+        type: 'ADD-POST'
+    } as const
+}
+export const updatePostTextAC = (text:string) => {
+    return {
+        type: 'UPDATE-POST-TEXT',
+        payload: text
+    } as const
+}
+
+
+

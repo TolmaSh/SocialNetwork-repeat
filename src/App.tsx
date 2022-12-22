@@ -5,13 +5,13 @@ import {Navbar} from './components/navbar/Navbar';
 import {Profile} from './components/profile/Profile';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {Dialogs} from './components/Dialogs/Dialogs';
-import {StateType} from './redux/state';
+import {ActionTypes} from './redux/state';
 
 
 type PropsType = {
     state: any
-    addPost: () => void
-    updatePostText: (text: string) => void
+    dispatch: (action: ActionTypes) => void
+
 }
 
 function App(props:PropsType) {
@@ -25,7 +25,7 @@ function App(props:PropsType) {
                         <Navbar/>
 
                         <Routes>
-                            <Route path="/dialogs" element={<Dialogs state={dialogsPage} addPost={props.addPost} updatePostText={props.updatePostText}/>}/>
+                            <Route path="/dialogs" element={<Dialogs state={dialogsPage} dispatch={props.dispatch}/>}/>
                             <Route path="/*" element={<Profile state={profilePage}/>}/>
                         </Routes>
                         <div className={'footer'}>Footer</div>

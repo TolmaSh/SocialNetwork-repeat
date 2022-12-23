@@ -2,7 +2,8 @@ import React from 'react';
 import s from './Dialogs.module.scss'
 import {Message} from './Message/Message';
 import {User} from './User/User';
-import {ActionTypes, addPostAC, DialogsPageType, updatePostTextAC} from '../../redux/state';
+import {ActionTypes,  DialogsPageType} from '../../redux/state';
+import {addPostAC, updatePostTextAC} from "../../redux/dialogs-reducer";
 
 type PropsType = {
     state: DialogsPageType
